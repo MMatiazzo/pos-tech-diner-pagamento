@@ -1,6 +1,7 @@
 generator client {
   provider        = "prisma-client-js"
   output          = "../node_modules/.prisma/client"
+  // output          = "../../../../../node_modules/.prisma/client"
   previewFeatures = ["fullTextSearch", "driverAdapters"]
   binaryTargets   = ["native", "debian-openssl-3.0.x"]
 }
@@ -13,7 +14,11 @@ datasource db {
 model Pagamento {
   id String @id @default(uuid())
 
-  pedidoId String
+  pedidoId String @unique()
+
+  messageId String
 
   status String
+
+  @@map("pagamento")
 }

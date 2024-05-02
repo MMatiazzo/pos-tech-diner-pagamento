@@ -4,7 +4,7 @@ import { PrismaService } from 'src/infrastructure/persistence/prisma/prisma.serv
 import { IPagamentoRepository } from './Ipagamento.repository';
 
 @Injectable()
-export class PagamentoMongoDbRepository implements IPagamentoRepository {
+export class PagamentoPostgresRepository implements IPagamentoRepository {
   constructor(
     @Inject(PrismaService)
     private prisma: PrismaService,
@@ -29,6 +29,7 @@ export class PagamentoMongoDbRepository implements IPagamentoRepository {
   }
 
   async criar(pagamento: Pagamento): Promise<Pagamento> {
+    console.log(pagamento)
     const novoPagamento = await this.prisma.pagamento.create({
       data: pagamento,
     });

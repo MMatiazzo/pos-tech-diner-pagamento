@@ -12,12 +12,13 @@ export class CriarPagamentoUseCase {
   ) { }
 
   async execute(payload: PagamentoDto): Promise<Pagamento> {
-    if (!payload.pedidoId) {
-      throw new BadRequestException('Id do pedido é obrigatório');
+    if (!payload.pedidoId || !payload.status || !payload.messageId) {
+      throw new BadRequestException(
+        'Id do pedido, status e messageId são obrigatórios',
+      );
     }
 
     const pagamento = Pagamento.new(payload);
-    pagamento.status = process.env.INITIAL_STATUS;
 
     const pagamentoCriado = await this.pagamentoGateway.criarPagamento(
       pagamento,

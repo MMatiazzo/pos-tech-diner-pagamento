@@ -3,7 +3,7 @@ import { Provider } from '@nestjs/common/interfaces/modules/provider.interface';
 import { PrismaService } from 'src/infrastructure/persistence/prisma/prisma.service';
 
 import { IPagamentoRepository } from 'src/infrastructure/persistence/repositories/Ipagamento.repository';
-import { PagamentoMongoDbRepository } from 'src/infrastructure/persistence/repositories/produto-mongodb.repository';
+import { PagamentoPostgresRepository } from 'src/infrastructure/persistence/repositories/pagamento-postgres.repository';
 import { PagamentoGateway } from '../operation/gateways/pagamento/Pagamento.gateway';
 
 import { CriarPagamentoUseCase } from 'src/core/pagamento/usecase/criar-pagamento/criar-pagamento.usecase';
@@ -17,7 +17,7 @@ const persistenceProviders: Provider[] = [
   {
     provide: IPagamentoRepository,
     useFactory: (prisma: PrismaService) =>
-      new PagamentoMongoDbRepository(prisma),
+      new PagamentoPostgresRepository(prisma),
     inject: [PrismaService],
   },
   {

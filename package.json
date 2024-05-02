@@ -10,7 +10,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:devnodb": "nest start --watch",
-    "start:dev": "npx prisma db push --schema=./src/infrastructure/persistence/prisma/schema/schema.prisma && npx prisma generate --schema=./src/infrastructure/persistence/prisma/schema/schema.prisma && nest start --watch",
+    "start:dev": "npx prisma migrate deploy --schema=./src/infrastructure/persistence/prisma/schema/schema.prisma && nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "start:migrate:prod": "npx prisma generate && npx prisma migrate deploy && npm run start:prod",
@@ -29,7 +29,6 @@
     "@prisma/client": "^5.13.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
-    "prisma": "^5.13.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
   },
