@@ -10,9 +10,9 @@ services:
     volumes:
       - .:/app
     ports:
-      - 3333:3333
+      - 3335:3335
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres_password@postgres_container:5432/pos-tech-db?schema=public
+      - DATABASE_URL=postgresql://postgres:postgres_password@postgres_container:5432/pos-tech-db
     links:
       - postgres_container:postgres_container
 

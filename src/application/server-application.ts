@@ -8,7 +8,7 @@ export class ServerApplication {
     const app: NestExpressApplication =
       await NestFactory.create<NestExpressApplication>(RootModule);
     app.useGlobalPipes(new ValidationPipe());
-    await app.listen(3334);
+    await app.listen(3335);
   }
 
   public static new(): ServerApplication {

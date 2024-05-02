@@ -31,7 +31,7 @@ export class PagamentoPostgresRepository implements IPagamentoRepository {
   async criar(pagamento: Pagamento): Promise<Pagamento> {
     console.log(pagamento)
     const novoPagamento = await this.prisma.pagamento.create({
-      data: pagamento,
+      data: { ...pagamento },
     });
     return novoPagamento;
   }
