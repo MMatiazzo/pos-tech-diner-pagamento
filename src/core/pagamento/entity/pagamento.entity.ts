@@ -13,12 +13,10 @@ export class Pagamento {
   id?: string;
   pedidoId: string;
   status: string;
-  messageId: string;
 
   private constructor(paylod: PagamentoDto) {
-    this.pedidoId = paylod.pedidoId;
+    this.pedidoId = paylod._id;
     this.status = paylod.status;
-    this.messageId = paylod.messageId;
   }
 
   public static new(payload: PagamentoDto) {

@@ -2,7 +2,7 @@ import { Body, Controller, Inject, Post } from '@nestjs/common';
 
 import { CriarPagamentoController } from 'src/application/operation/controllers/pagamento/criar-pagamento/criar-pagamento.controller';
 import { PagarPagamentoController } from 'src/application/operation/controllers/pagamento/pagar-pagamento/pagar-pagamento.controller';
-import { PagamentoDto } from 'src/core/pagamento/dto/cria-pagamento.dto';
+import { PagamentosDtos } from 'src/core/pagamento/dto/cria-pagamento.dto';
 import { PagarPagamentoDto } from 'src/core/pagamento/dto/pagar-pagamento.dto';
 import { Pagamento } from 'src/core/pagamento/entity/pagamento.entity';
 
@@ -16,8 +16,8 @@ export class PagamentoControllerRoute {
     private pagarPagamentoController: PagarPagamentoController,
   ) { }
 
-  @Post('/criar')
-  async cadastrar(@Body() payload: PagamentoDto): Promise<Pagamento> {
+  @Post('/criar-pagamentos')
+  async cadastrar(@Body() payload: PagamentosDtos): Promise<Pagamento[]> {
     const pagamentoCriado = await this.criarPagamentoController.handle(payload);
     return pagamentoCriado;
   }

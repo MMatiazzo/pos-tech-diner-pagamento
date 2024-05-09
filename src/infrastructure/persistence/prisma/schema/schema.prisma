@@ -12,10 +12,9 @@ datasource db {
 }
 
 model Pagamento {
-  id        String @id @default(uuid())
-  pedidoId  String @unique
-  messageId String
-  status    String
+  id       String @id @default(uuid())
+  pedidoId String @unique
+  status   String
 
   @@map("pagamento")
 }

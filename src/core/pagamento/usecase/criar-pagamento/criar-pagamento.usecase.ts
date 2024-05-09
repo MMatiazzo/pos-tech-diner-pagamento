@@ -1,7 +1,7 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 
 import { IPagamentoGateway } from '../../../../application/operation/gateways/pagamento/Ipagamento.gateway';
-import { PagamentoDto } from '../../dto/cria-pagamento.dto';
+import { PagamentosDtos } from '../../dto/cria-pagamento.dto';
 import { Pagamento } from '../../entity/pagamento.entity';
 
 @Injectable()
@@ -11,18 +11,15 @@ export class CriarPagamentoUseCase {
     private pagamentoGateway: IPagamentoGateway,
   ) { }
 
-  async execute(payload: PagamentoDto): Promise<Pagamento> {
-    if (!payload.pedidoId || !payload.status || !payload.messageId) {
-      throw new BadRequestException(
-        'Id do pedido, status e messageId são obrigatórios',
-      );
-    }
+  async execute(payload: PagamentosDtos): Promise<Pagamento[]> {
 
-    const pagamento = Pagamento.new(payload);
+    const pagamentos = payload.pagamentos.map(pagamento => Pagamento.new({ ...pagamento }));
 
-    const pagamentoCriado = await this.pagamentoGateway.criarPagamento(
-      pagamento,
-    );
-    return pagamentoCriado;
+    console.log('pagamentos => ', pagamentos);
+    const promiseCriarPagamento = pagamentos.map(novoPagamento => this.pagamentoGateway.criarPagamento(novoPagamento));
+
+    const pagamentosCriados = await Promise.all(promiseCriarPagamento);
+
+    return pagamentosCriados;
   }
 }
