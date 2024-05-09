@@ -2,7 +2,7 @@ import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 
 import { IPagamentoGateway } from '../../../../application/operation/gateways/pagamento/Ipagamento.gateway';
 import { PagarPagamentoDto } from '../../dto/pagar-pagamento.dto';
-import { Pagamento } from '../../entity/pagamento.entity';
+import { PAGAMENTO_STATUS, Pagamento } from '../../entity/pagamento.entity';
 
 @Injectable()
 export class PagarPagamentoUseCase {
@@ -16,20 +16,20 @@ export class PagarPagamentoUseCase {
       throw new BadRequestException('Id do pedido e cartão são obrigatórios');
     }
 
+
     const pagamento = await this.pagamentoGateway.listarPagamento(
       payload.pedidoId,
     );
 
-    if (pagamento) {
+    if (!pagamento) {
       throw new BadRequestException(
         'Pagamento não encontrado para este pedido',
       );
     }
 
-    let novoStatus = process.env.STATUS_REPROVADO as string;
-
+    let novoStatus = PAGAMENTO_STATUS.PAGAMENTO_RECUSADO
     if (payload.cartao === process.env.CARTAO_APROVADO) {
-      novoStatus = process.env.STATUS_APROVADO as string;
+      novoStatus = PAGAMENTO_STATUS.PAGAMENTO_CONFIRMADO
     }
 
     return await this.pagamentoGateway.atualizarStatusPagamento(

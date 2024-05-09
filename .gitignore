@@ -35,4 +35,6 @@ node_modules
 !.vscode/launch.json
 !.vscode/extensions.json
 
-.env
+.development.env
+aws
+awscliv2.zip

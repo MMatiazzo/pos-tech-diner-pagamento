@@ -12,7 +12,7 @@ services:
     ports:
       - 3335:3335
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres_password@postgres_container:5432/pos-tech-db
+      - DATABASE_URL=postgresql://postgres:postgres_password@postgres_container:5432/pos-tech-db?schema=public
     links:
       - postgres_container:postgres_container
 
@@ -25,8 +25,3 @@ services:
       POSTGRES_PASSWORD: postgres_password
     ports:
       - "5432:5432"
-    volumes:
-      - ./data/pg:/var/lib/postgresql/data
-
-volumes:
-  data:
