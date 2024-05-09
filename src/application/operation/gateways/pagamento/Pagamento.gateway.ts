@@ -12,11 +12,16 @@ export class PagamentoGateway implements IPagamentoGateway {
   async listarPagamento(pedidoId: string): Promise<Pagamento> {
     return await this.pagamentoRepository.listar(pedidoId);
   }
+
+  async listarTodosPagamentos(): Promise<Pagamento[]> {
+    return await this.pagamentoRepository.listarTodos();
+  }
+
   async atualizarStatusPagamento(
     pedidoId: string,
     status: string,
   ): Promise<Pagamento> {
-    const novoStatus =  await this.pagamentoRepository.editar(pedidoId, 'status', status);
+    const novoStatus = await this.pagamentoRepository.editar(pedidoId, 'status', status);
     return novoStatus
   }
 

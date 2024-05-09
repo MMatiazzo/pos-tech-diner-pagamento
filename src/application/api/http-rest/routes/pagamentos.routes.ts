@@ -1,6 +1,7 @@
-import { Body, Controller, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 
 import { CriarPagamentoController } from 'src/application/operation/controllers/pagamento/criar-pagamento/criar-pagamento.controller';
+import { ListarPagamentoController } from 'src/application/operation/controllers/pagamento/listar-pagamento/listar-pagamento.controller';
 import { PagarPagamentoController } from 'src/application/operation/controllers/pagamento/pagar-pagamento/pagar-pagamento.controller';
 import { PagamentosDtos } from 'src/core/pagamento/dto/cria-pagamento.dto';
 import { PagarPagamentoDto } from 'src/core/pagamento/dto/pagar-pagamento.dto';
@@ -14,6 +15,9 @@ export class PagamentoControllerRoute {
 
     @Inject(PagarPagamentoController)
     private pagarPagamentoController: PagarPagamentoController,
+
+    @Inject(ListarPagamentoController)
+    private listarPagamentoController: ListarPagamentoController,
   ) { }
 
   @Post('/criar-pagamentos')
@@ -26,5 +30,11 @@ export class PagamentoControllerRoute {
   async pagar(@Body() payload: PagarPagamentoDto): Promise<Pagamento> {
     const pagamento = await this.pagarPagamentoController.handle(payload);
     return pagamento;
+  }
+
+  @Get('/listar-pagamento')
+  async listar(): Promise<Pagamento[]> {
+    const pagamentos = await this.listarPagamentoController.handle();
+    return pagamentos;
   }
 }

@@ -18,6 +18,10 @@ export class PagamentoPostgresRepository implements IPagamentoRepository {
     });
   }
 
+  async listarTodos(): Promise<Pagamento[]> {
+    return await this.prisma.pagamento.findMany();
+  }
+
   async editar(id: string, campo: string, valor: string): Promise<Pagamento> {
     const updateData = { [campo]: valor };
     return this.prisma.pagamento.update({

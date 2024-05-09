@@ -11,6 +11,8 @@ import { CriarPagamentoController } from '../operation/controllers/pagamento/cri
 import { PagamentoControllerRoute } from '../api/http-rest/routes/pagamentos.routes';
 import { PagarPagamentoUseCase } from 'src/core/pagamento/usecase/pagar-pagamento/pagar-pagamento.usecase';
 import { PagarPagamentoController } from '../operation/controllers/pagamento/pagar-pagamento/pagar-pagamento.controller';
+import { ListarPagamentoUseCase } from 'src/core/pagamento/usecase/listar-pagamento/listar-pagamento.usecase';
+import { ListarPagamentoController } from '../operation/controllers/pagamento/listar-pagamento/listar-pagamento.controller';
 
 const persistenceProviders: Provider[] = [
   PrismaService,
@@ -41,6 +43,12 @@ const useCaseProviders: Provider[] = [
       new PagarPagamentoUseCase(pagamentoGateway),
     inject: [PagamentoGateway],
   },
+  {
+    provide: ListarPagamentoUseCase,
+    useFactory: (pagamentoGateway: PagamentoGateway) =>
+      new ListarPagamentoUseCase(pagamentoGateway),
+    inject: [PagamentoGateway],
+  },
 ];
 
 const controllerProviders: Provider[] = [
@@ -55,6 +63,12 @@ const controllerProviders: Provider[] = [
     useFactory: (pagarPagamentoUseCase: PagarPagamentoUseCase) =>
       new PagarPagamentoController(pagarPagamentoUseCase),
     inject: [PagarPagamentoUseCase],
+  },
+  {
+    provide: ListarPagamentoController,
+    useFactory: (listarPagamentoUseCase: ListarPagamentoUseCase) =>
+      new ListarPagamentoController(listarPagamentoUseCase),
+    inject: [ListarPagamentoUseCase],
   },
 ];
 
