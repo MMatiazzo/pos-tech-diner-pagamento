@@ -13,7 +13,7 @@ export class PagamentoPostgresRepository implements IPagamentoRepository {
   async listar(id: string): Promise<Pagamento> {
     return await this.prisma.pagamento.findUnique({
       where: {
-        pedidoId: id,
+        id,
       },
     });
   }
