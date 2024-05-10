@@ -13,6 +13,8 @@ import { PagarPagamentoUseCase } from 'src/core/pagamento/usecase/pagar-pagament
 import { PagarPagamentoController } from '../operation/controllers/pagamento/pagar-pagamento/pagar-pagamento.controller';
 import { ListarPagamentoUseCase } from 'src/core/pagamento/usecase/listar-pagamento/listar-pagamento.usecase';
 import { ListarPagamentoController } from '../operation/controllers/pagamento/listar-pagamento/listar-pagamento.controller';
+import { IQueueGateway } from '../operation/gateways/queue/Iqueue.gateway';
+import { SQSQueueGateway } from '../operation/gateways/queue/aws/sqs-queue.gateway';
 
 const persistenceProviders: Provider[] = [
   PrismaService,
@@ -28,6 +30,11 @@ const persistenceProviders: Provider[] = [
       new PagamentoGateway(pagamentoRepository),
     inject: [IPagamentoRepository],
   },
+  {
+    provide: IQueueGateway,
+    useFactory: () => new SQSQueueGateway(),
+    inject: []
+  }
 ];
 
 const useCaseProviders: Provider[] = [
@@ -39,9 +46,9 @@ const useCaseProviders: Provider[] = [
   },
   {
     provide: PagarPagamentoUseCase,
-    useFactory: (pagamentoGateway: PagamentoGateway) =>
-      new PagarPagamentoUseCase(pagamentoGateway),
-    inject: [PagamentoGateway],
+    useFactory: (pagamentoGateway: PagamentoGateway, queueGateway: IQueueGateway) =>
+      new PagarPagamentoUseCase(pagamentoGateway, queueGateway),
+    inject: [PagamentoGateway, IQueueGateway],
   },
   {
     provide: ListarPagamentoUseCase,
