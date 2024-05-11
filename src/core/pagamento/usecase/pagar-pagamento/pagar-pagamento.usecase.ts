@@ -31,6 +31,7 @@ export class PagarPagamentoUseCase {
     }
 
     let novoStatus = PAGAMENTO_STATUS.PAGAMENTO_RECUSADO
+    console.log('process.env.CARTAO_APROVADO => ', process.env.CARTAO_APROVADO);
     if (payload.cartao === process.env.CARTAO_APROVADO) {
       novoStatus = PAGAMENTO_STATUS.PAGAMENTO_CONFIRMADO
     }
@@ -43,6 +44,8 @@ export class PagarPagamentoUseCase {
     if (!pago) {
       throw new BadRequestException('Não foi possível pagar o pedido');
     }
+
+    console.log('process.env.SQS_EDITAR_STATUS_PEDIDO_QUEUE => ', process.env.SQS_EDITAR_STATUS_PEDIDO_QUEUE);
 
     await this.queueGateway.enviarMensagem(
       process.env.SQS_EDITAR_STATUS_PEDIDO_QUEUE,
