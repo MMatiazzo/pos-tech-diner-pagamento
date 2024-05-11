@@ -3,7 +3,7 @@ import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { IPagamentoGateway } from '../../../../application/operation/gateways/pagamento/Ipagamento.gateway';
 import { PagarPagamentoDto } from '../../dto/pagar-pagamento.dto';
 import { PAGAMENTO_STATUS, Pagamento } from '../../entity/pagamento.entity';
-import { IQueueGateway } from 'src/application/operation/gateways/queue/Iqueue.gateway';
+import { IQueueGateway } from '../../../../application/operation/gateways/queue/Iqueue.gateway';
 
 @Injectable()
 export class PagarPagamentoUseCase {
@@ -31,6 +31,7 @@ export class PagarPagamentoUseCase {
     }
 
     let novoStatus = PAGAMENTO_STATUS.PAGAMENTO_RECUSADO
+    
     if (payload.cartao === process.env.CARTAO_APROVADO) {
       novoStatus = PAGAMENTO_STATUS.PAGAMENTO_CONFIRMADO
     }
@@ -39,10 +40,6 @@ export class PagarPagamentoUseCase {
       payload.pedidoId,
       novoStatus,
     );
-
-    if (!pago) {
-      throw new BadRequestException('Não foi possível pagar o pedido');
-    }
 
     await this.queueGateway.enviarMensagem(
       process.env.SQS_EDITAR_STATUS_PEDIDO_QUEUE,

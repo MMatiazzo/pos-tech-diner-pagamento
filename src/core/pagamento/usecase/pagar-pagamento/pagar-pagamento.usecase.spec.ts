@@ -1,17 +1,21 @@
 import { BadRequestException } from '@nestjs/common';
 import { IPagamentoGateway } from '../../../../application/operation/gateways/pagamento/Ipagamento.gateway';
-import { PagamentoDto } from '../../dto/cria-pagamento.dto';
+import { PagamentoDto, PagamentosDtos } from '../../dto/cria-pagamento.dto';
 import { PagarPagamentoDto } from '../../dto/pagar-pagamento.dto';
 import { PAGAMENTO_STATUS } from '../../entity/pagamento.entity';
 import { PagarPagamentoUseCase } from './pagar-pagamento.usecase';
 import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
+import { IQueueGateway } from 'src/application/operation/gateways/queue/Iqueue.gateway';
 
 const ID_UUID = "0";
 const pagamentoDto: PagamentoDto = {
-    "pedidoId": "123456",
-    "status": "Aguardando_Pagamento",
-    "messageId": "messageID1"
+    "_id": "123456",
+    "status": "Aguardando_Pagamento"
+}
+
+const pagamentosDto: PagamentosDtos = {
+    "pagamentos": [pagamentoDto]
 }
 
 const pagarPagamentoDto: PagarPagamentoDto = {
@@ -22,28 +26,42 @@ const pagarPagamentoDto: PagarPagamentoDto = {
 describe('PagarPagamentoUseCase', () => {
     let pagarPagamentoUseCase: PagarPagamentoUseCase;
     let pagamentoGatewayMock: IPagamentoGateway;
+    let queueGatewayMock: IQueueGateway
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             imports: [
-              ConfigModule.forRoot({
-                envFilePath: ['.development.env']
-              }),
+                ConfigModule.forRoot(),
             ],
-          }).compile()
+        }).compile()
         pagamentoGatewayMock = {
             criarPagamento: jest.fn(async () => {
-                return { ...pagamentoDto, id: ID_UUID }
+                return { ...pagamentoDto, id: ID_UUID, pedidoId: pagamentoDto._id }
             }),
             listarPagamento: jest.fn(async (pedidoId) => {
-                return pedidoId === pagamentoDto.pedidoId ? { ...pagamentoDto, id: ID_UUID }: null
+                return pagamentoDto._id === pedidoId ? { ...pagamentoDto, id: ID_UUID, pedidoId: pagamentoDto._id } : null
+            }),
+            listarTodosPagamentos: jest.fn(async () => {
+                return []
             }),
             atualizarStatusPagamento: jest.fn(async (pedidoId, novoStatus) => {
-                return { ...pagamentoDto, id: ID_UUID, status: novoStatus}
+                return { ...pagamentoDto, id: ID_UUID, pedidoId, status: novoStatus }
             })
         } as IPagamentoGateway;
 
-        pagarPagamentoUseCase = new PagarPagamentoUseCase(pagamentoGatewayMock);
+        queueGatewayMock = {
+            enviarMensagem: jest.fn(async () => {
+                return
+            }),
+            receberMensagem: jest.fn(async () => {
+                return
+            }),
+            deletarMensagem: jest.fn(async () => {
+                return
+            })
+        } as IQueueGateway;
+
+        pagarPagamentoUseCase = new PagarPagamentoUseCase(pagamentoGatewayMock, queueGatewayMock);
     });
 
     it('Deve ser capaz de pagar um pagamento', async () => {
