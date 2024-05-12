@@ -3,7 +3,7 @@ import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { IPagamentoGateway } from '../../../../application/operation/gateways/pagamento/Ipagamento.gateway';
 import { PagarPagamentoDto } from '../../dto/pagar-pagamento.dto';
 import { PAGAMENTO_STATUS, Pagamento } from '../../entity/pagamento.entity';
-import { IQueueGateway } from 'src/application/operation/gateways/queue/Iqueue.gateway';
+import { IQueueGateway } from '../../../../application/operation/gateways/queue/Iqueue.gateway';
 
 @Injectable()
 export class PagarPagamentoUseCase {
@@ -31,7 +31,9 @@ export class PagarPagamentoUseCase {
     }
 
     let novoStatus = PAGAMENTO_STATUS.PAGAMENTO_RECUSADO
+ 
     console.log('process.env.CARTAO_APROVADO => ', process.env.CARTAO_APROVADO);
+
     if (payload.cartao === process.env.CARTAO_APROVADO) {
       novoStatus = PAGAMENTO_STATUS.PAGAMENTO_CONFIRMADO
     }
