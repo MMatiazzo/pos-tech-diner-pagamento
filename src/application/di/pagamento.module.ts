@@ -14,7 +14,7 @@ import { PagarPagamentoController } from '../operation/controllers/pagamento/pag
 import { ListarPagamentoUseCase } from 'src/core/pagamento/usecase/listar-pagamento/listar-pagamento.usecase';
 import { ListarPagamentoController } from '../operation/controllers/pagamento/listar-pagamento/listar-pagamento.controller';
 import { IQueueGateway } from '../operation/gateways/queue/Iqueue.gateway';
-import { SQSQueueGateway } from '../operation/gateways/queue/aws/sqs-queue.gateway';
+import { SQSQueueGateway } from '../operation/gateways/queue/aws-queue/sqs-queue.gateway';
 
 const persistenceProviders: Provider[] = [
   PrismaService,
