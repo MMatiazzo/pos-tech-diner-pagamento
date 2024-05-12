@@ -20,7 +20,7 @@ const pagamentosDto: PagamentosDtos = {
 
 const pagarPagamentoDto: PagarPagamentoDto = {
     "pedidoId": "123456",
-    "cartao": "5031433215406351"
+    "cartao": "123"
 }
 
 describe('PagarPagamentoUseCase', () => {

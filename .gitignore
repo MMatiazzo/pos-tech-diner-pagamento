@@ -36,6 +36,6 @@ node_modules
 !.vscode/extensions.json
 
 .development.env
-.env
+.env.prod
 aws
 awscliv2.zip
