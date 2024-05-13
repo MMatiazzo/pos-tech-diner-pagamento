@@ -43,10 +43,6 @@ export class PagarPagamentoUseCase {
       novoStatus,
     );
 
-    if (!pago) {
-      throw new BadRequestException('Não foi possível pagar o pedido');
-    }
-
     console.log('process.env.SQS_EDITAR_STATUS_PEDIDO_QUEUE => ', process.env.SQS_EDITAR_STATUS_PEDIDO_QUEUE);
 
     await this.queueGateway.enviarMensagem(
