@@ -4,7 +4,6 @@ import { PrismaService } from 'src/infrastructure/persistence/prisma/prisma.serv
 
 import { IPagamentoRepository } from 'src/infrastructure/persistence/repositories/Ipagamento.repository';
 import { PagamentoPostgresRepository } from 'src/infrastructure/persistence/repositories/pagamento-postgres.repository';
-import { PagamentoGateway } from '../operation/gateways/pagamento/Pagamento.gateway';
 
 import { CriarPagamentoUseCase } from 'src/core/pagamento/usecase/criar-pagamento/criar-pagamento.usecase';
 import { CriarPagamentoController } from '../operation/controllers/pagamento/criar-pagamento/criar-pagamento.controller';
@@ -16,6 +15,7 @@ import { ListarPagamentoController } from '../operation/controllers/pagamento/li
 import { IQueueGateway } from '../operation/gateways/queue/Iqueue.gateway';
 import { SQSQueueGateway } from '../operation/gateways/queue/aws-queue/sqs-queue.gateway';
 import { IPagamentoGateway } from '../operation/gateways/pagamento/Ipagamento.gateway';
+import { PagamentoGateway } from '../operation/gateways/pagamento/oagamento.gateway';
 
 const persistenceProviders: Provider[] = [
   PrismaService,

@@ -1,6 +1,5 @@
 import { PAGAMENTO_STATUS, Pagamento } from '../../../core/pagamento/entity/pagamento.entity';
 import { PrismaService } from '../prisma/prisma.service';
-import { IPagamentoRepository } from './Ipagamento.repository';
 import { PagamentoPostgresRepository } from './pagamento-postgres.repository';
 
 const pagamentoDto: Pagamento = {
@@ -9,33 +8,6 @@ const pagamentoDto: Pagamento = {
 };
 
 const ID_UUID_MOCK = "1";
-const bancoMock = [];
-
-class PagamentoRepositoryMock implements IPagamentoRepository {
-
-    async listar(id: string): Promise<Pagamento | null> {
-        return bancoMock.find((p => p.id === id))
-    }
-
-    async editar(id: string, campo: string, valor: string): Promise<Pagamento> {
-        const index = bancoMock.findIndex((p => p.id === id))
-        if (index >= 0) {
-            bancoMock[index][campo] = valor
-        }
-
-        return bancoMock[index]
-    }
-
-
-    async criar(pagamentoDto: Pagamento): Promise<Pagamento> {
-        bancoMock.push({ ...pagamentoDto, ID_UUID_MOCK })
-        return { ...pagamentoDto, id: ID_UUID_MOCK }
-    }
-
-    async listarTodos(): Promise<Pagamento[]> {
-        return bancoMock
-    }
-}
 
 describe('Pagamento Repository', () => {
     let pagamentoRepository: PagamentoPostgresRepository;

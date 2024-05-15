@@ -72,7 +72,9 @@
       ".module.",
       ".spec.",
       ".entity.",
-      ".schema."
+      ".schema.",
+      ".service.",
+      ".exception."
     ],
     "collectCoverageFrom": [
       "**/*.(t|j)s"

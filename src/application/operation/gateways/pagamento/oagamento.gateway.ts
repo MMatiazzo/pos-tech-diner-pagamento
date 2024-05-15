@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common';
-import { Pagamento } from 'src/core/pagamento/entity/pagamento.entity';
-import { IPagamentoRepository } from 'src/infrastructure/persistence/repositories/Ipagamento.repository';
+import { Pagamento } from '../../../../core/pagamento/entity/pagamento.entity';
+import { IPagamentoRepository } from '../../../../infrastructure/persistence/repositories/Ipagamento.repository';
 import { IPagamentoGateway } from './Ipagamento.gateway';
 
 export class PagamentoGateway implements IPagamentoGateway {
