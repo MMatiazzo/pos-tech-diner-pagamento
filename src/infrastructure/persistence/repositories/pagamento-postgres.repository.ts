@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Pagamento } from 'src/core/pagamento/entity/pagamento.entity';
-import { PrismaService } from 'src/infrastructure/persistence/prisma/prisma.service';
+import { Pagamento } from '../../../core/pagamento/entity/pagamento.entity';
+import { PrismaService } from '../../../infrastructure/persistence/prisma/prisma.service';
 import { IPagamentoRepository } from './Ipagamento.repository';
 
 @Injectable()

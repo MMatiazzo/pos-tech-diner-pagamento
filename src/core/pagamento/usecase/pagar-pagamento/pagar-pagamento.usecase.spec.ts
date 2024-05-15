@@ -23,6 +23,11 @@ const pagarPagamentoDto: PagarPagamentoDto = {
     "cartao": "123"
 }
 
+const pagamentoQueue = {
+    queueUrl: "http://localhost",
+    messageBody: { "id": "123456", "status": "Pagamento_Recusado" }
+}
+
 describe('PagarPagamentoUseCase', () => {
     let pagarPagamentoUseCase: PagarPagamentoUseCase;
     let pagamentoGatewayMock: IPagamentoGateway;
@@ -89,4 +94,10 @@ describe('PagarPagamentoUseCase', () => {
 
         expect(result.status).toEqual(PAGAMENTO_STATUS.PAGAMENTO_RECUSADO)
     });
+
+    it('Deve ser capaz de enviar um novo pagamento para a fila', async () => {
+        const result = await pagarPagamentoUseCase.execute({ ...pagarPagamentoDto, cartao: '12312312312' });
+
+        expect(queueGatewayMock.enviarMensagem).toHaveBeenNthCalledWith(1, pagamentoQueue.queueUrl, pagamentoQueue.messageBody);
+});
 });
