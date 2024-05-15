@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PagamentoGateway } from './oagamento.gateway';
+import { PagamentoGateway } from './pagamento.gateway';
 import { IPagamentoRepository } from '../../../../infrastructure/persistence/repositories/Ipagamento.repository';
 import { Pagamento } from '../../../../core/pagamento/entity/pagamento.entity';
 
@@ -27,14 +27,10 @@ describe('PagamentoGateway', () => {
     pagamentoRepository = module.get<IPagamentoRepository>(IPagamentoRepository);
   });
 
-  it('should be defined', () => {
-    expect(pagamentoGateway).toBeDefined();
-  });
-
   describe('listarPagamento', () => {
-    it('should call listar method of pagamentoRepository', async () => {
-      const pedidoId = 'someId';
-      const expectedResult: Pagamento = {pedidoId: "someId", status: ''}; // Define expected result
+    it('Deve ser capaz de chamar a função de listar no pagamentoRepository', async () => {
+      const pedidoId = '12345';
+      const expectedResult: Pagamento = {pedidoId: "12345", status: ''}; 
       jest.spyOn(pagamentoRepository, 'listar').mockResolvedValue(expectedResult);
 
       const result = await pagamentoGateway.listarPagamento(pedidoId);
@@ -45,8 +41,8 @@ describe('PagamentoGateway', () => {
   });
 
   describe('listarTodosPagamentos', () => {
-    it('should call listarTodos method of pagamentoRepository', async () => {
-      const expectedResult: Pagamento[] = []; // Define expected result
+    it('Deve ser capaz de chamar a função listarTodos no pagamentoRepository', async () => {
+      const expectedResult: Pagamento[] = []; 
       jest.spyOn(pagamentoRepository, 'listarTodos').mockResolvedValue(expectedResult);
 
       const result = await pagamentoGateway.listarTodosPagamentos();
@@ -55,7 +51,4 @@ describe('PagamentoGateway', () => {
       expect(result).toEqual(expectedResult);
     });
   });
-
-  // Similar tests for other methods...
-
 });

@@ -44,11 +44,7 @@ describe('PagamentoControllerRoute', () => {
     listarPagamentoController = module.get<ListarPagamentoController>(ListarPagamentoController);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
-
-  it('should create a new pagamento', async () => {
+  it('Deve ser capaz de criar um pagamento', async () => {
     const mockPayload: PagamentosDtos = {pagamentos: []}; // Provide mock data as needed
     const mockResponse: Pagamento[] = []; // Provide mock response as needed
 
@@ -59,9 +55,9 @@ describe('PagamentoControllerRoute', () => {
     expect(result).toEqual(mockResponse);
   });
 
-  it('should pay for a pagamento', async () => {
-    const mockPayload: PagarPagamentoDto = {cartao: '', pedidoId: ''}; // Provide mock data as needed
-    const mockResponse: Pagamento = {pedidoId: '', status: ""}; // Provide mock response as needed
+  it('Deve ser capaz de pagar um pagamento', async () => {
+    const mockPayload: PagarPagamentoDto = {cartao: '', pedidoId: '12345'}; // Provide mock data as needed
+    const mockResponse: Pagamento = {pedidoId: '12345', status: ""}; // Provide mock response as needed
 
     jest.spyOn(pagarPagamentoController, 'handle').mockResolvedValue(mockResponse);
 
@@ -70,7 +66,7 @@ describe('PagamentoControllerRoute', () => {
     expect(result).toEqual(mockResponse);
   });
 
-  it('should list pagamentos', async () => {
+  it('Deve ser capaz de listar pagamentos', async () => {
     const mockResponse: Pagamento[] = []; // Provide mock response as needed
 
     jest.spyOn(listarPagamentoController, 'handle').mockResolvedValue(mockResponse);

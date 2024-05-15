@@ -15,7 +15,7 @@ import { ListarPagamentoController } from '../operation/controllers/pagamento/li
 import { IQueueGateway } from '../operation/gateways/queue/Iqueue.gateway';
 import { SQSQueueGateway } from '../operation/gateways/queue/aws-queue/sqs-queue.gateway';
 import { IPagamentoGateway } from '../operation/gateways/pagamento/Ipagamento.gateway';
-import { PagamentoGateway } from '../operation/gateways/pagamento/oagamento.gateway';
+import { PagamentoGateway } from '../operation/gateways/pagamento/pagamento.gateway';
 
 const persistenceProviders: Provider[] = [
   PrismaService,

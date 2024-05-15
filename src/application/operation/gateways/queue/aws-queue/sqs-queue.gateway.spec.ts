@@ -12,7 +12,7 @@ jest.mock("@aws-sdk/client-sqs", () => {
   };
 });
 
-describe('SQSQueueGateway Test Suite', () => {
+describe('SQSQueueGateway', () => {
   let sqsQueueGateway: SQSQueueGateway;
   let sqsClient: SQSClient;
 
@@ -25,8 +25,8 @@ describe('SQSQueueGateway Test Suite', () => {
     jest.clearAllMocks();
   });
 
-  it('should send message', async () => {
-    const queueUrl = 'some-queue-url';
+  it('Deve ser capaz de enviar mensagem', async () => {
+    const queueUrl = 'url-queue';
     const messageBody = { foo: 'bar' };
 
     await sqsQueueGateway.enviarMensagem(queueUrl, messageBody);
@@ -35,7 +35,7 @@ describe('SQSQueueGateway Test Suite', () => {
   });
 
   it('Receber mensagem SQS', async () => {
-    const queueUrl = 'some-queue-url';
+    const queueUrl = 'url-queue';
 
     await sqsQueueGateway.receberMensagem(queueUrl);
 
@@ -43,7 +43,7 @@ describe('SQSQueueGateway Test Suite', () => {
   });
 
   it('Deletar mensagem SQS', async () => {
-    const queueUrl = 'some-queue-url';
+    const queueUrl = 'url-queue';
     const messages = {
       Messages: [
         { ReceiptHandle: 'receipt-handle-1' },
