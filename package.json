@@ -67,9 +67,15 @@
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      ".module.",
+      ".spec.",
+      ".entity.",
+      ".schema."
+    ],
     "collectCoverageFrom": [
-      "**/*.(t|j)s",
-      "!**/*.spec.{js,jsx,ts,tsx}"
+      "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
