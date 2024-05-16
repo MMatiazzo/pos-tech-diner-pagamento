@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 
-import { CriarPagamentoController } from 'src/application/operation/controllers/pagamento/criar-pagamento/criar-pagamento.controller';
-import { ListarPagamentoController } from 'src/application/operation/controllers/pagamento/listar-pagamento/listar-pagamento.controller';
-import { PagarPagamentoController } from 'src/application/operation/controllers/pagamento/pagar-pagamento/pagar-pagamento.controller';
-import { PagamentosDtos } from 'src/core/pagamento/dto/cria-pagamento.dto';
-import { PagarPagamentoDto } from 'src/core/pagamento/dto/pagar-pagamento.dto';
-import { Pagamento } from 'src/core/pagamento/entity/pagamento.entity';
+import { CriarPagamentoController } from '../../../../application/operation/controllers/pagamento/criar-pagamento/criar-pagamento.controller';
+import { ListarPagamentoController } from '../../../../application/operation/controllers/pagamento/listar-pagamento/listar-pagamento.controller';
+import { PagarPagamentoController } from '../../../../application/operation/controllers/pagamento/pagar-pagamento/pagar-pagamento.controller';
+import { PagamentosDtos } from '../../../../core/pagamento/dto/cria-pagamento.dto';
+import { PagarPagamentoDto } from '../../../../core/pagamento/dto/pagar-pagamento.dto';
+import { Pagamento } from '../../../../core/pagamento/entity/pagamento.entity';
 
 @Controller('/pagamento')
 export class PagamentoControllerRoute {
