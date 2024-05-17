@@ -7,6 +7,8 @@ import { PagamentosDtos } from '../../../../core/pagamento/dto/cria-pagamento.dt
 import { PagarPagamentoDto } from '../../../../core/pagamento/dto/pagar-pagamento.dto';
 import { Pagamento } from '../../../../core/pagamento/entity/pagamento.entity';
 
+// deploy trigger
+
 @Controller('/pagamento')
 export class PagamentoControllerRoute {
   constructor(
