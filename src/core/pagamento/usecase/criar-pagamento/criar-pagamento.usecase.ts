@@ -19,7 +19,6 @@ export class CriarPagamentoUseCase {
     const promiseCriarPagamento = pagamentos.map(novoPagamento => this.pagamentoGateway.criarPagamento(novoPagamento));
 
     const pagamentosCriados = await Promise.all(promiseCriarPagamento);
-
     return pagamentosCriados;
   }
 }

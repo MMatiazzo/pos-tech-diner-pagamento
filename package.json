@@ -19,7 +19,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand --watchAll test/",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:cucumber": "cucumber-js -p default"
   },
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.574.0",
@@ -34,6 +35,9 @@
     "rxjs": "^7.2.0"
   },
   "devDependencies": {
+    "@cucumber/cucumber": "^10.7.0",
+    "@cucumber/cucumber-expressions": "^17.1.0",
+    "@cucumber/tag-expressions": "^6.1.0",
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
@@ -43,6 +47,7 @@
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "cucumber-pretty": "^6.0.1",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
