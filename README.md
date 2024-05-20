@@ -2,6 +2,8 @@
 
 # Micro serviço de pagamento
 
+##### A collection com os requests está no arquivo `micro-services.postman_collection.json` na pasta `PAGAMENTO`
+
 ## End-point: criar-pagamento
 #### End-point para fazer o cadastro de um pagamento
 ### Method: POST
