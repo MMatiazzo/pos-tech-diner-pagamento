@@ -20,21 +20,21 @@ import { PagamentoGateway } from '../operation/gateways/pagamento/pagamento.gate
 const persistenceProviders: Provider[] = [
   PrismaService,
   {
+    provide: IQueueGateway,
+    useFactory: () => new SQSQueueGateway(),
+    inject: []
+  },
+  {
     provide: IPagamentoRepository,
-    useFactory: (prisma: PrismaService) =>
-      new PagamentoPostgresRepository(prisma),
-    inject: [PrismaService],
+    useFactory: (prisma: PrismaService, queueGateway: IQueueGateway) =>
+      new PagamentoPostgresRepository(prisma, queueGateway),
+    inject: [PrismaService, IQueueGateway],
   },
   {
     provide: IPagamentoGateway,
     useFactory: (pagamentoRepository: IPagamentoRepository) =>
       new PagamentoGateway(pagamentoRepository),
     inject: [IPagamentoRepository],
-  },
-  {
-    provide: IQueueGateway,
-    useFactory: () => new SQSQueueGateway(),
-    inject: []
   }
 ];
 
@@ -47,9 +47,9 @@ const useCaseProviders: Provider[] = [
   },
   {
     provide: PagarPagamentoUseCase,
-    useFactory: (pagamentoGateway: IPagamentoGateway, queueGateway: IQueueGateway) =>
-      new PagarPagamentoUseCase(pagamentoGateway, queueGateway),
-    inject: [IPagamentoGateway, IQueueGateway],
+    useFactory: (pagamentoGateway: IPagamentoGateway) =>
+      new PagarPagamentoUseCase(pagamentoGateway),
+    inject: [IPagamentoGateway],
   },
   {
     provide: ListarPagamentoUseCase,
