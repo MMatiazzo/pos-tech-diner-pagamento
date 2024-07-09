@@ -30,6 +30,7 @@ export class PagamentoControllerRoute {
 
   @Post('/pagar')
   async pagar(@Body() payload: PagarPagamentoDto): Promise<Pagamento> {
+    console.log('teste na rota de pagar', payload);
     const pagamento = await this.pagarPagamentoController.handle(payload);
     return pagamento;
   }
