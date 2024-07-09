@@ -21,6 +21,8 @@ export class PagarPagamentoUseCase {
       payload.pedidoId,
     );
 
+    console.log('pagamento => ', pagamento);
+
     if (!pagamento) {
       throw new BadRequestException(
         'Pagamento não encontrado para este pedido',
@@ -35,8 +37,10 @@ export class PagarPagamentoUseCase {
       novoStatus = PAGAMENTO_STATUS.PAGAMENTO_CONFIRMADO
     }
 
+    console.log('pagamento.pedidoId => ', pagamento.pedidoId);
+
     const pago = await this.pagamentoGateway.atualizarStatusPagamento(
-      payload.pedidoId,
+      pagamento.pedidoId,
       novoStatus,
     );
 

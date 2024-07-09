@@ -10,6 +10,7 @@ export class PagarPagamentoController {
   ) { }
 
   async handle(pagamento: PagarPagamentoDto): Promise<Pagamento> {
+    console.log('pagamento inside controller => ', pagamento);
     return await this.pagarPagamentoUseCase.execute(pagamento);
   }
 }

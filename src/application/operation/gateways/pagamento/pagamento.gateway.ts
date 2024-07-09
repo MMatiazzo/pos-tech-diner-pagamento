@@ -21,6 +21,7 @@ export class PagamentoGateway implements IPagamentoGateway {
     pedidoId: string,
     status: string,
   ): Promise<Pagamento> {
+    console.log('status dentro do gateway => ', status);
     const novoStatus = await this.pagamentoRepository.editar(pedidoId, 'status', status);
     return novoStatus
   }

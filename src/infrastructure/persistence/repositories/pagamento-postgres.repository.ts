@@ -26,14 +26,19 @@ export class PagamentoPostgresRepository implements IPagamentoRepository {
   }
 
   async editar(id: string, campo: string, valor: string): Promise<Pagamento> {
+
+    console.log('id => ', id, 'campo => ', campo, 'valor => ', valor);
+
     return this.prisma.$transaction(async (prisma) => {
       const updateData = { [campo]: valor };
-      const pagamentoAtt = this.prisma.pagamento.update({
+      const pagamentoAtt = await this.prisma.pagamento.update({
         where: {
-          id,
+          pedidoId: id,
         },
-        data: updateData,
+        data: { status: valor },
       });
+
+      console.log('pagamentoAtt => ', pagamentoAtt);
 
       await this.queueGateway.enviarMensagem(
         process.env.SQS_EDITAR_STATUS_PEDIDO_QUEUE,
