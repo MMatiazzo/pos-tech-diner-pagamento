@@ -44,6 +44,8 @@ export class CriarPagamentoController {
       if (!this.isValidISODate(pagamento.createdAt) || !this.isValidISODate(pagamento.updatedAt)) throw new BadRequestException('Wrong format')
     }
 
+    console.log('pagamentos on controller => ', pagamentos);
+
     const pagamentoCriado = await this.criarPagamentoUseCase.execute(pagamentos);
 
 
