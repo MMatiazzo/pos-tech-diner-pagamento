@@ -1,0 +1,89 @@
+{
+	"info": {
+		"_postman_id": "0807f30e-012a-4583-a3ce-18def80a5a72",
+		"name": "PAGAMENTO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13378210",
+		"_collection_link": "https://warped-escape-624714.postman.co/workspace/post-tech~2931a1e9-f92e-468c-98e8-1b5d76e5d02d/collection/13378210-0807f30e-012a-4583-a3ce-18def80a5a72?action=share&source=collection_link&creator=13378210"
+	},
+	"item": [
+		{
+			"name": "criar-pagamento",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"pagamentos\": [\r\n        {\r\n            \"_id\": \"663e8cb4a0d6d26299bb0c48\",\r\n            \"status\": \"Recebido\",\r\n            \"produtosIds\": [\r\n                \"663bfb97a64f9e280b59ff28\"\r\n            ],\r\n            \"clienteId\": \"usuarioteste1@email.com.br\",\r\n            \"createdAt\": \"2024-05-08T22:30:17.607Z\",\r\n            \"updatedAt\": \"2024-05-08T22:51:17.875Z\",\r\n            \"__v\": 0\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3334/pagamento/criar-pagamentos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3334",
+					"path": [
+						"pagamento",
+						"criar-pagamentos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listar-pagamentos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3334/pagamento/listar-pagamento",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3334",
+					"path": [
+						"pagamento",
+						"listar-pagamento"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pagar-pagamento",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"pedidoId\": \"8caa847e-a626-4b21-ae58-27c0da604342\",\r\n    \"cartao\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3334/pagamento/pagar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3334",
+					"path": [
+						"pagamento",
+						"pagar"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
