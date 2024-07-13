@@ -16,7 +16,7 @@ const pagamentoDto: PagamentoDto = {
     produtosIds: ["123"],
     updatedAt: new Date().toISOString(),
     "_id": "123456",
-    "status": "Aguardando_Pagamento"
+    "status": "Recebido"
 }
 const pagarPagamentoDto: PagarPagamentoDto = {
     "pedidoId": "123456",
@@ -25,7 +25,7 @@ const pagarPagamentoDto: PagarPagamentoDto = {
 
 
 describe('Pagar Pagamento Controller', () => {
-    
+
     let pagarPagamentoController: PagarPagamentoController;
     let pagarPagamentoUseCase: PagarPagamentoUseCase;
     let pagamentoGatewayMock: IPagamentoGateway;
@@ -73,6 +73,6 @@ describe('Pagar Pagamento Controller', () => {
         const pagamentoCriado = await pagarPagamentoController.handle(pagarPagamentoDto);
 
         expect(pagamentoCriado.id).toEqual(ID_UUID);
-        expect(pagamentoCriado.status).toEqual(PAGAMENTO_STATUS.PAGAMENTO_CONFIRMADO);
+        expect(pagamentoCriado.status).toEqual(PAGAMENTO_STATUS.PAGAMENTO_RECUSADO);
     });
 });

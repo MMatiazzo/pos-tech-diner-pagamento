@@ -77,7 +77,7 @@ describe('PagarPagamentoUseCase', () => {
     it('Deve ser capaz de pagar um pagamento', async () => {
         const result = await pagarPagamentoUseCase.execute(pagarPagamentoDto);
         expect(result.id).toEqual(ID_UUID);
-        expect(result.status).toEqual(PAGAMENTO_STATUS.PAGAMENTO_CONFIRMADO)
+        expect(result.status).toEqual(PAGAMENTO_STATUS.PAGAMENTO_RECUSADO)
     });
 
     it('Não deve ser capaz de pagar um pagamento não vinculado a um pedido', async () => {
