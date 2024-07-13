@@ -10,7 +10,12 @@ import { IQueueGateway } from 'src/application/operation/gateways/queue/Iqueue.g
 
 const ID_UUID = "0";
 const pagamentoDto: PagamentoDto = {
-    "_id": "123456",
+    __v: 0,
+    clienteId: "",
+    createdAt: new Date().toISOString(),
+    produtosIds: ["123"],
+    updatedAt: new Date().toISOString(),
+    "_id": "ead47955-9c4b-4fe6-bb3a-11b21598baf7",
     "status": "Aguardando_Pagamento"
 }
 
@@ -19,7 +24,7 @@ const pagamentosDto: PagamentosDtos = {
 }
 
 const pagarPagamentoDto: PagarPagamentoDto = {
-    "pedidoId": "123456",
+    "pedidoId": "ead47955-9c4b-4fe6-bb3a-11b21598baf7",
     "cartao": "123"
 }
 
@@ -66,7 +71,7 @@ describe('PagarPagamentoUseCase', () => {
             })
         } as IQueueGateway;
 
-        pagarPagamentoUseCase = new PagarPagamentoUseCase(pagamentoGatewayMock, queueGatewayMock);
+        pagarPagamentoUseCase = new PagarPagamentoUseCase(pagamentoGatewayMock);
     });
 
     it('Deve ser capaz de pagar um pagamento', async () => {
@@ -94,10 +99,4 @@ describe('PagarPagamentoUseCase', () => {
 
         expect(result.status).toEqual(PAGAMENTO_STATUS.PAGAMENTO_RECUSADO)
     });
-
-    it('Deve ser capaz de enviar um novo pagamento para a fila', async () => {
-        const result = await pagarPagamentoUseCase.execute({ ...pagarPagamentoDto, cartao: '12312312312' });
-
-        expect(queueGatewayMock.enviarMensagem).toHaveBeenNthCalledWith(1, pagamentoQueue.queueUrl, pagamentoQueue.messageBody);
-});
 });

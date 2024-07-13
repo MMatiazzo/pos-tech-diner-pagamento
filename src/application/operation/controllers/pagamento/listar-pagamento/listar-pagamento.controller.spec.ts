@@ -6,6 +6,11 @@ import { ListarPagamentoController } from "./listar-pagamento.controller";
 
 const ID_UUID = "0";
 const pagamentoDto: PagamentoDto = {
+    __v: 0,
+    clienteId: "",
+    createdAt: new Date().toISOString(),
+    produtosIds: ["123"],
+    updatedAt: new Date().toISOString(),
     "_id": "123456",
     "status": "Aguardando_Pagamento"
 }

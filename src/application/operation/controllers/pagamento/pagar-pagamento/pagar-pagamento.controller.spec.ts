@@ -10,10 +10,14 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 const ID_UUID = "0";
 const pagamentoDto: PagamentoDto = {
+    __v: 0,
+    clienteId: "",
+    createdAt: new Date().toISOString(),
+    produtosIds: ["123"],
+    updatedAt: new Date().toISOString(),
     "_id": "123456",
     "status": "Aguardando_Pagamento"
 }
-
 const pagarPagamentoDto: PagarPagamentoDto = {
     "pedidoId": "123456",
     "cartao": "123"
@@ -60,7 +64,7 @@ describe('Pagar Pagamento Controller', () => {
             })
         } as IQueueGateway;
 
-        pagarPagamentoUseCase = new PagarPagamentoUseCase(pagamentoGatewayMock, queueGatewayMock);
+        pagarPagamentoUseCase = new PagarPagamentoUseCase(pagamentoGatewayMock);
         pagarPagamentoController = new PagarPagamentoController(pagarPagamentoUseCase);
     });
 

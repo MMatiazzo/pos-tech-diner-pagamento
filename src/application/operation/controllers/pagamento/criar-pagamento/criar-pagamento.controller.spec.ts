@@ -6,12 +6,17 @@ import { CriarPagamentoController } from "./criar-pagamento.controller";
 
 const ID_UUID = "0";
 const pagamentoDto: PagamentoDto = {
-    "_id": "123456",
-    "status": "Aguardando_Pagamento"
+    __v: 0,
+    clienteId: "test@test.com",
+    createdAt: new Date().toISOString(),
+    produtosIds: ["6692bcf4fca7d1902952393a"],
+    updatedAt: new Date().toISOString(),
+    _id: "6692bd1dfca7d1902952393e",
+    status: "Aguardando_Pagamento"
 }
 
 const pagamentoObjMock: Pagamento = {
-    "pedidoId": "123456",
+    "pedidoId": "6692bd1dfca7d1902952393e",
     "status": 'Aguardando_Pagamento'
 }
 

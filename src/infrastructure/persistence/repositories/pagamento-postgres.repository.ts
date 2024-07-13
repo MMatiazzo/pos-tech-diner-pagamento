@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Pagamento } from '../../../core/pagamento/entity/pagamento.entity';
 import { PrismaService } from '../../../infrastructure/persistence/prisma/prisma.service';
 import { IPagamentoRepository } from './Ipagamento.repository';
-import { IQueueGateway } from 'src/application/operation/gateways/queue/Iqueue.gateway';
+import { IQueueGateway } from '../../../application/operation/gateways/queue/Iqueue.gateway';
 
 @Injectable()
 export class PagamentoPostgresRepository implements IPagamentoRepository {

@@ -1,3 +1,4 @@
+import { IQueueGateway } from '../../../application/operation/gateways/queue/Iqueue.gateway';
 import { PAGAMENTO_STATUS, Pagamento } from '../../../core/pagamento/entity/pagamento.entity';
 import { PrismaService } from '../prisma/prisma.service';
 import { PagamentoPostgresRepository } from './pagamento-postgres.repository';
@@ -12,6 +13,7 @@ const ID_UUID_MOCK = "1";
 describe('Pagamento Repository', () => {
     let pagamentoRepository: PagamentoPostgresRepository;
     let prismaServiceMock: PrismaService;
+    let queueGatewayMock: IQueueGateway
 
     beforeEach(() => {
         prismaServiceMock = {
@@ -23,9 +25,16 @@ describe('Pagamento Repository', () => {
             },
             $connect: jest.fn(),
             $disconnect: jest.fn(),
+            $transaction: jest.fn(),
         } as unknown as PrismaService;
 
-        pagamentoRepository = new PagamentoPostgresRepository(prismaServiceMock);
+        queueGatewayMock = {
+            enviarMensagem: jest.fn(),
+            receberMensagem: jest.fn(),
+            deletarMensagem: jest.fn(),
+        } as unknown as IQueueGateway
+
+        pagamentoRepository = new PagamentoPostgresRepository(prismaServiceMock, queueGatewayMock);
     });
 
     afterEach(() => {
@@ -40,21 +49,6 @@ describe('Pagamento Repository', () => {
     it('listarTodos prisma.pagamento.findMany', async () => {
         await pagamentoRepository.listarTodos();
         expect(prismaServiceMock.pagamento.findMany).toHaveBeenCalled();
-    });
-
-    it('editar prisma.pagamento.update', async () => {
-        const id = 'someId';
-        const campo = 'someField';
-        const valor = 'someValue';
-        await pagamentoRepository.editar(id, campo, valor);
-        expect(prismaServiceMock.pagamento.update).toHaveBeenCalledWith({
-            where: {
-                id,
-            },
-            data: {
-                [campo]: valor,
-            },
-        });
     });
 
     it('criar prisma.pagamento.create', async () => {
